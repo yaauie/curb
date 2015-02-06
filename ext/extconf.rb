@@ -2,6 +2,9 @@ require 'mkmf'
 
 dir_config('curl')
 
+# Respect env's CC variable, if it is present
+RbConfig::MAKEFILE_CONFIG['CC'] = ENV['CC'] if ENV['CC']
+
 if find_executable('curl-config')
   $CFLAGS << " #{`curl-config --cflags`.strip} -g"
   if ENV['STATIC_BUILD']
